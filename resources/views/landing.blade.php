@@ -5,11 +5,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <script>
-  // client validation
+  // client-side input validation
   const Q_MIN_LENGTH = 5;
   const Q_MAX_LENGTH = 50;
   function validate_q() {
-    var str = document.getElementById("q_text").value;
+    var str = document.getElementById("q_text").value.trim();
     if(str.length < Q_MIN_LENGTH) {
       document.getElementById("q_err").innerHTML = "The question must be at least "+Q_MIN_LENGTH+" characters.";      
     } else if(str.length > Q_MAX_LENGTH) {

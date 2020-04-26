@@ -18,8 +18,11 @@ Route::get('/', function() {
   return view('landing');
 });
 
-// handle storage of a new question
-Route::post('question', 'PostController@store');
+// store a new question
+Route::post('question', 'PostController@store_q');
 
-// view an existing question
+// store a new answer, to some question
+Route::post('question/{id}/answer', 'PostController@store_a');
+
+// display an existing question and its answers
 Route::get('question/{id}', 'PostController@show');
