@@ -41,10 +41,11 @@
   <br/>
   <div> Answer a question </div>
     <?php
-      $questions = DB::table('question')->orderBy('id', 'DESC')->pluck('text');
-
+      $questions = DB::table('question')->orderBy('id', 'DESC')->get();
       foreach($questions as $question) {
-        echo "<a href=\"\"> $question </a>";
+        echo "<a href=\"question/$question->id\"> $question->text </a>";
+        $answer_count = DB::table('answer')->where('qid', $question->id)->count();
+        echo "<div> $answer_count answers </div>";
         echo "<br/>";
       }
     ?>
