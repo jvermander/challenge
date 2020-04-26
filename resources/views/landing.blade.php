@@ -3,7 +3,14 @@
 <head>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+<?php
+  define("PLACEHOLDER_Q", "No questions yet. Be the first one to ask a question by using the form above.");
+  $questions = array("Studies show Vegans carry a lower risk of heart disease. Why?",
+                     "What is the only essential vitamin that cannot be obtained on a plant-based diet?",
+                     "What industry is responsible for the majority of greenhouse gas emissions?",
+                     "Is it feasible to raise children on a Vegan diet?",
+                     "Where do Vegans obtain Omega-3?");
+  ?>
 <script>
   // client-side input validation
   const Q_MIN_LENGTH = 5;
@@ -23,15 +30,6 @@
 </script>
 </head>
 <body>
-  
-  <?php
-  $questions = array("Studies show Vegans carry a lower risk of heart disease. Why?",
-                     "What is the only essential vitamin that cannot be obtained on a plant-based diet?",
-                     "What industry is responsible for the majority of greenhouse gas emissions?",
-                     "Is it feasible to raise children on a Vegan diet?",
-                     "Where do Vegans obtain Omega-3?");
-  ?>
-  
   <form id="q_form" method="post" action="question">
     @csrf
     <div> Ask a question </div>
@@ -40,6 +38,15 @@
     <div style="color: red;" id="q_err"></div>
     <button type="button" onclick="validate_q()"> Ask </button>
   </form>
-  <!-- <div> Answer a question </div> -->
+  <br/>
+  <div> Answer a question </div>
+    <?php
+      $questions = DB::table('question')->orderBy('id', 'DESC')->pluck('text');
+
+      foreach($questions as $question) {
+        echo "<a href=\"\"> $question </a>";
+        echo "<br/>";
+      }
+    ?>
 </body>
 </html>
