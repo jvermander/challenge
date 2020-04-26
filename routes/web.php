@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// question submission page (default landing)
 Route::get('/', function() {
   return view('landing');
 });
 
-Route::post('question', function() {
-  return view('question');
-});
+// handle storage of a new question
+Route::post('question', 'PostController@store');
 
+// view an existing question
+Route::get('question/{id}', 'PostController@show');
