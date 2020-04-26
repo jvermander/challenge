@@ -27,6 +27,9 @@ class PostController extends Controller
 
     public function show($id) {
       $question = DB::table('question')->where('id', $id)->first();
+      if(!$question) {
+        abort(404);
+      }
       $answers = DB::table('answer')->where('qid', $id)->orderBy('id')->pluck('text');
       return view('question', [ 'question' => $question, 'answers' => $answers ]);
     }

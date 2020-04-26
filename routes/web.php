@@ -18,11 +18,19 @@ Route::get('/', function() {
   return view('landing');
 });
 
+
 // store a new question
 Route::post('question', 'PostController@store_q');
+Route::get('question', function() {
+  abort(404);
+});
 
 // store a new answer, to some question
 Route::post('question/{id}/answer', 'PostController@store_a');
+Route::get('question/{id}/answer', function() {
+  abort(404);
+});
 
 // display an existing question and its answers
 Route::get('question/{id}', 'PostController@show');
+
