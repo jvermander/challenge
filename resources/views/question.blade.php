@@ -1,6 +1,9 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <?php 
   define("PLACEHOLDER_ANS", "No answers yet. Be the first one to answer by using the form below.");
 ?>
@@ -24,13 +27,15 @@
 
 </head>
 <body>
-  <div> {{ $question->text }} </div>
+  <a href="/"> Q & A </a>
   <br/>
+  <h4> Question: {{ $question->text }} </h4>
   <?php
     if($answers->isEmpty()) {
       $answers[] = PLACEHOLDER_ANS;
     }
     
+    echo "<h4> Answers: </h4> ";
     foreach($answers as $answer) {
       echo "<div> $answer </div>";
     }
@@ -38,7 +43,7 @@
   <br/>
   <form id="a_form" method="post" action="/question/<?php echo $question->id; ?>/answer">
     @csrf
-    <div> Answer the Question! </div>
+    <h4> Answer the Question! </h4>
     <textarea id="a_text" name="answer" rows="2" cols="50"></textarea>
     <div style="color: red;" id="a_err"></div>
     <button type="button" onclick="validate_a()"> Answer </button>
