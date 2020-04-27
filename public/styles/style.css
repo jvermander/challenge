@@ -1,0 +1,29 @@
+
+body {
+  background-image: url(/images/farm.jpg); 
+  background-size: auto; 
+  background-attachment: fixed;
+}
+
+a, a:hover {
+  background: none !important;
+  color: white !important;
+}
+
+h3, .jumbotron, .list-group-item, textarea, button {
+  color: white !important;
+  background-color: rgba(0,0,0,0.6) !important;
+  border: none !important;
+}
+
+h4 {
+  color: white !important;
+}
+
+textarea {
+  resize: vertical !important;
+}
+
+.list-group-item:hover, button:hover {
+  background-color: rgba(0,0,0,0.9) !important;
+}
