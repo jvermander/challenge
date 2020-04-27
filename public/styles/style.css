@@ -16,6 +16,10 @@ h3, .jumbotron, .list-group-item, textarea, button {
   border: none !important;
 }
 
+.list-group-item {
+  background: rgba(0,0,0,0.5);
+}
+
 h4 {
   color: white !important;
 }

@@ -10,16 +10,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <?php
-  // define("PLACEHOLDER_Q", "No questions yet. Be the first one to ask a question by using the form above.");
+  define("PLACEHOLDER_Q", "No questions yet. Be the first one to ask a question by using the form above.");
   $questions = array("What way of dying do you fear the most?",
                      "What fictional character do you most relate to?",
                      "What is your opinion on psychedelic drugs?",
                      "What advice would you give to a younger version of yourself, given the chance?",
                      "Where do vegans obtain Omega-3?");
-  ?>
+?>
 <script>
   const Q_MIN_LENGTH = 5;
-  const Q_MAX_LENGTH = 50;
+  const Q_MAX_LENGTH = 100;
 
   function validate_q() {
     var str = document.getElementById("q_text").value.trim();
@@ -32,7 +32,7 @@
       
       document.getElementById("q_err").innerHTML = errmsg;
       document.getElementById("q_err").classList.add("alert", "alert-danger");
-      document.getElementById("question").classList.add("has-warning");
+      document.getElementById("q_form").classList.add("has-warning");
     } else {
       document.getElementById("q_form").submit();
     }
@@ -40,17 +40,15 @@
 </script>
 </head>
 <body>
-  
-  <div class="jumbotron text-center"> 
-    <h1><a href="/">
-      Q & A
-    </a></h1> 
-  </div>
+  <?php
+    require_once(public_path('/php/header.blade.php'));
+  ?>
+
 
   <h3 class="container well text-center"><a href="#question" data-toggle="collapse"> Ask a question <span class="glyphicon glyphicon-question-sign"></span></a></h3>
 
   <div id="question" class="container text-center form-group collapse">
-    <form class="" id="q_form" method="post" action="question"> 
+    <form id="q_form" method="post" action="question"> 
       @csrf
       <textarea class="form-control" id="q_text" name="question" rows="2" 
                 placeholder="<?php echo $questions[rand(0, sizeof($questions)-1)]?>"></textarea>
@@ -66,12 +64,17 @@
     <ul class="list-group container">
       <?php
         $questions = DB::table('question')->orderBy('id', 'DESC')->get();
-        foreach($questions as $question) {
-          echo "<a style=\"container-fluid\" class=\"list-group-item\" href=\"question/$question->id\">$question->text";           
-          $answer_count = DB::table('answer')->where('qid', $question->id)->count();
-          echo "<span class=\"badge black\"> $answer_count answers </span>";
-          echo "</a>";
-          echo "<br/>";
+
+        if($questions->isEmpty()) {
+          echo "<a class=\"list-group-item\">" . PLACEHOLDER_Q . "</a>";        
+        } else {
+          foreach($questions as $question) {
+            $answer_count = DB::table('answer')->where('qid', $question->id)->count();
+            echo "<a class=\"list-group-item\" href=\"question/$question->id\">$question->text";           
+            echo "<span class=\"badge\"> $answer_count answers </span>";
+            echo "</a>";
+            echo "<br/>";
+          }
         }
       ?>
     </ul>
