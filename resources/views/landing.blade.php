@@ -39,6 +39,7 @@
   }
 </script>
 </head>
+
 <body>
   <?php
     require_once(public_path('/php/header.blade.php'));
